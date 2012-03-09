@@ -3,5 +3,8 @@
 
     <string name="hello">Hello World, CharmSettingsActivity!</string>
     <string name="app_name">Charm</string>
+    <string name="textEnableSensing">Sensor Data Collection</string>
+    <string name="SensorDataType">SensorDataType</string>
+    <string name="SensorDataValue">SensorDataValue</string>
 
 </resources>
