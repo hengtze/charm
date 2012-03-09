@@ -38,7 +38,9 @@ public class GPSListener implements SensorListener, LocationListener {
 
 	@Override
 	public void stopListening() {
-		locationManager.removeUpdates(this);
+		if (locationManager != null) {
+			locationManager.removeUpdates(this);
+		}
 	}
 
 	@Override

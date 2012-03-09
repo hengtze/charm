@@ -20,7 +20,7 @@
 	            android:layout_height="wrap_content"
 	            android:layout_gravity="center_vertical"
 	            android:layout_weight="1.5"
-	            android:layout_margin="10dip"
+	            android:layout_margin="15dip"
 	            android:text="@string/textEnableSensing"
 	            android:textStyle="bold"
 	            android:textColor="#777"

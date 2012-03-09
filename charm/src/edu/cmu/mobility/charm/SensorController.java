@@ -20,7 +20,7 @@ public class SensorController {
         compassListener = new CompassListener(c);
         proximitySensorListener = new ProximitySensorListener(c);
         gpsListener = new GPSListener(c);
-        audioListener = new AudioListener();
+        audioListener = AudioListener.getInstance();
 	}
 	
 	public static SensorController getInstance(Context c) {
@@ -43,5 +43,9 @@ public class SensorController {
 		accelerometerListener.stopListening();
 		gpsListener.stopListening();
 		audioListener.stopListening();
+	}
+
+	public void onDestroy() {
+		audioListener.onDestroy();
 	}
 }

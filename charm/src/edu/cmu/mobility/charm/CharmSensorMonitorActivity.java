@@ -60,6 +60,11 @@ public class CharmSensorMonitorActivity extends Activity implements OnClickListe
     }
     
     @Override
+    public void onStop() {
+    	super.onStop();
+    }
+    
+    @Override
     protected void onDestroy() {
     	SharedPreferences settings = this.getSharedPreferences("charm.settings", 0);
     	if (isSensing){
@@ -69,7 +74,19 @@ public class CharmSensorMonitorActivity extends Activity implements OnClickListe
 			
 	    	sensorController.stopSensing();
     	}
+    	sensorController.onDestroy();
     	super.onDestroy();
+    }
+    
+    @Override
+    public void onBackPressed() {        
+    	if ( !isSensing ) {
+    		finish();
+    		//moveTaskToBack(true);
+    	}
+    	else {
+    		moveTaskToBack(true);
+    	}
     }
     
     private void initUserInterface() {
