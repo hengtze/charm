@@ -11,6 +11,7 @@ public class SensorDataValues {
 		ACCELERATION_Y ("Acceleration (Y-Axis)"),
 		ACCELERATION_Z ("Acceleration (Z-Axis)"),
 		ACCELERATION_MAGNITUDE ("Acceleration (Magnitude)"),
+		AUDIO_RAW ("Audio (Amplitude)"),
 		ORIENTATION_AZIMUTH("Orientation (Azimuth)"), 
 		ORIENTATION_PITCH("Orientation (Pitch)"), 
 		ORIENTATION_ROLL("Orientation (Roll)"),

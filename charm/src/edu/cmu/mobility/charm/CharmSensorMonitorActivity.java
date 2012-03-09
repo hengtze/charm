@@ -26,6 +26,7 @@ public class CharmSensorMonitorActivity extends Activity implements OnClickListe
 	
 	private static SensorController sensorController;
 	private static SensorDataValues sensorDataValues;
+	private static boolean isSensing = false;
 	
 	private static final String SENSOR_DATA_TYPE = "SensorDataType";
 	private static final String SENSOR_DATA_VALUE = "SensorDataValue";
@@ -39,7 +40,7 @@ public class CharmSensorMonitorActivity extends Activity implements OnClickListe
         
         sensorController = SensorController.getInstance(this);        
         sensorDataValues = SensorDataValues.getInstance();
-        setSensorListView();
+        initSensorListView();
     }
     
     @Override
@@ -61,7 +62,7 @@ public class CharmSensorMonitorActivity extends Activity implements OnClickListe
     @Override
     protected void onDestroy() {
     	SharedPreferences settings = this.getSharedPreferences("charm.settings", 0);
-    	if (settings.getBoolean(getString(R.string.isSensingEnabled), false)){
+    	if (isSensing){
 			SharedPreferences.Editor editor = settings.edit();
 			editor.putBoolean(getString(R.string.isSensingEnabled), false);
 			editor.commit();
@@ -78,7 +79,7 @@ public class CharmSensorMonitorActivity extends Activity implements OnClickListe
     	sensorListView = (ListView) this.findViewById(R.id.listSensorData); 
     }
     
-    private void setSensorListView() {
+    private void initSensorListView() {
     	sensorDataList = new ArrayList<HashMap<String,String>>();
     	sensorListAdapter = new SimpleAdapter(this, sensorDataList,
     			R.layout.sensor_list,
@@ -110,8 +111,6 @@ public class CharmSensorMonitorActivity extends Activity implements OnClickListe
 		
 		for (int i=0; i<dataValues.length; i++) {
 	    	HashMap<String,String> row = new HashMap<String,String>();
-//	    	Double value = dataValues[i];
-	    	
 	    	row.put(SENSOR_DATA_TYPE, dataTypeStrings[i]);
 	    	row.put(SENSOR_DATA_VALUE, new DecimalFormat("#.##").format(dataValues[i]) );
 	    	sensorDataList.add(row);
@@ -121,8 +120,10 @@ public class CharmSensorMonitorActivity extends Activity implements OnClickListe
 	
 	private void startSensing() {
 		sensorController.startSensing();
+		isSensing = true;
 	}
 	private void stopSensing() {
 		sensorController.stopSensing();
+		isSensing = false;
 	}
 }
