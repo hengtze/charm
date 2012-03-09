@@ -13,8 +13,7 @@
 	        android:id="@+id/linearLayout1"
 	        android:layout_width="match_parent"
 	        android:layout_height="100dip" 
-	        android:background="#DDDDDD">
-	
+	        android:background="#DDDDDD">	
 	        <TextView
 	            android:id="@+id/textEnableSensing"
 	            android:layout_width="wrap_content"
@@ -23,14 +22,16 @@
 	            android:layout_weight="1.5"
 	            android:layout_margin="10dip"
 	            android:text="@string/textEnableSensing"
+	            android:textStyle="bold"
+	            android:textColor="#777"
 	            android:textAppearance="?android:attr/textAppearanceMedium" />
-	
 	        <ToggleButton
 	            android:id="@+id/buttonEnableSensing"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
+	            android:layout_width="70dip"
+	            android:layout_height="60dip"
 	            android:layout_gravity="center_vertical"
 	            android:layout_margin="10dip"
+	            android:textColor="#888"
 	            android:text="ToggleButton" />
 	    </LinearLayout>
 	    
@@ -51,9 +52,10 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="0.5dip" 
 	        android:background="#DDDDDD"> </LinearLayout> -->
+	        
 	    <ListView 
-	        android:id="@+id/listSensorData" 
-        	android:layout_height="wrap_content"                 
+	        android:id="@+id/listSensorData"
+	        android:layout_height="wrap_content"                 
         	android:layout_width="match_parent">
        	</ListView>
     </LinearLayout>

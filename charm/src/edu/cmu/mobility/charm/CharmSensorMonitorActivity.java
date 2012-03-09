@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,10 +24,9 @@ public class CharmSensorMonitorActivity extends Activity implements OnClickListe
 	private static SimpleAdapter sensorListAdapter;
 	private static ArrayList<HashMap<String,String>> sensorDataList;
 	
-	private static CharmSensorManager charmSensorManager;
+	private static SensorController sensorController;
 	private static SensorDataValues sensorDataValues;
 	
-	private static boolean isSensingEnabled = false;
 	private static final String SENSOR_DATA_TYPE = "SensorDataType";
 	private static final String SENSOR_DATA_VALUE = "SensorDataValue";
 	
@@ -37,10 +37,40 @@ public class CharmSensorMonitorActivity extends Activity implements OnClickListe
         setContentView(R.layout.charm_settings_activity);
         initUserInterface();
         
-        charmSensorManager = CharmSensorManager.getInstance(this);        
+        sensorController = SensorController.getInstance(this);        
         sensorDataValues = SensorDataValues.getInstance();
         setSensorListView();
     }
+    
+    @Override
+    public void onResume() {
+    	super.onResume();		
+		SharedPreferences settings = this.getSharedPreferences("charm.settings", 0);
+		buttonEnableSensing.setChecked(settings.getBoolean(getString(R.string.isSensingEnabled), false));
+    }
+    
+    @Override
+    public void onPause() {
+    	SharedPreferences settings = this.getSharedPreferences("charm.settings", 0);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putBoolean(getString(R.string.isSensingEnabled), buttonEnableSensing.isChecked());
+		editor.commit();
+    	super.onPause();
+    }
+    
+    @Override
+    protected void onDestroy() {
+    	SharedPreferences settings = this.getSharedPreferences("charm.settings", 0);
+    	if (settings.getBoolean(getString(R.string.isSensingEnabled), false)){
+			SharedPreferences.Editor editor = settings.edit();
+			editor.putBoolean(getString(R.string.isSensingEnabled), false);
+			editor.commit();
+			
+	    	sensorController.stopSensing();
+    	}
+    	super.onDestroy();
+    }
+    
     private void initUserInterface() {
     	//textProximity = (TextView) findViewById(R.id.);
     	buttonEnableSensing = (ToggleButton) findViewById(R.id.buttonEnableSensing);
@@ -51,9 +81,10 @@ public class CharmSensorMonitorActivity extends Activity implements OnClickListe
     private void setSensorListView() {
     	sensorDataList = new ArrayList<HashMap<String,String>>();
     	sensorListAdapter = new SimpleAdapter(this, sensorDataList,
-                android.R.layout.simple_list_item_2, 
+    			R.layout.sensor_list,
+                //android.R.layout.simple_list_item_2, 
                 new String[] { SENSOR_DATA_TYPE, SENSOR_DATA_VALUE }, 
-                new int[] { android.R.id.text1, android.R.id.text2 });
+                new int[] { R.id.sensorListText1, R.id.sensorListText2 });
 	    
     	updateSensorValues();
     	
@@ -62,15 +93,13 @@ public class CharmSensorMonitorActivity extends Activity implements OnClickListe
     }
     
     public void onClick (View clickedButton) {
-    	if(clickedButton.equals(buttonEnableSensing)) {
+    	if(clickedButton.equals(buttonEnableSensing)) {    					
     		if (buttonEnableSensing.isChecked()) {
-    			isSensingEnabled = true;
     			startSensing();
     		}
-    		else {
-    			isSensingEnabled = false;    			
+    		else {			
     			stopSensing();
-    		}
+    		}    		
 		}
     }
     
@@ -91,9 +120,9 @@ public class CharmSensorMonitorActivity extends Activity implements OnClickListe
     }
 	
 	private void startSensing() {
-		charmSensorManager.startSensing();
+		sensorController.startSensing();
 	}
 	private void stopSensing() {
-		charmSensorManager.stopSensing();
+		sensorController.stopSensing();
 	}
 }

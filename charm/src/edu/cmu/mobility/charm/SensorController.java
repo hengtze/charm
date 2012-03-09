@@ -1,25 +1,28 @@
 package edu.cmu.mobility.charm;
 
+import android.content.Context;
 import edu.cmu.mobility.charm.sensors.AccelerometerListener;
 import edu.cmu.mobility.charm.sensors.CompassListener;
+import edu.cmu.mobility.charm.sensors.GPSListener;
 import edu.cmu.mobility.charm.sensors.ProximitySensorListener;
-import android.content.Context;
 
-public class CharmSensorManager {
-	private static CharmSensorManager singleInstance = null;
+public class SensorController {
+	private static SensorController singleInstance = null;
 	private static AccelerometerListener accelerometerListener;
 	private static CompassListener compassListener;
 	private static ProximitySensorListener proximitySensorListener;
+	private static GPSListener gpsListener;
 	
-	public CharmSensorManager(Context c) {
+	public SensorController(Context c) {
 		accelerometerListener = new AccelerometerListener(c);
         compassListener = new CompassListener(c);
         proximitySensorListener = new ProximitySensorListener(c);
+        gpsListener = new GPSListener(c);
 	}
 	
-	public static CharmSensorManager getInstance(Context c) {
+	public static SensorController getInstance(Context c) {
 		if (singleInstance == null) {
-			singleInstance = new CharmSensorManager(c);
+			singleInstance = new SensorController(c);
 		}
 		return singleInstance;
 	}
@@ -28,10 +31,12 @@ public class CharmSensorManager {
 		proximitySensorListener.startListening();
 		compassListener.startListening();
 		accelerometerListener.startListening();
+		gpsListener.startListening();
 	}
 	public void stopSensing() {
 		proximitySensorListener.stopListening();
 		compassListener.stopListening();
 		accelerometerListener.stopListening();
+		gpsListener.stopListening();
 	}
 }

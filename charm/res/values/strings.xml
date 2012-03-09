@@ -6,5 +6,6 @@
     <string name="textEnableSensing">Sensor Data Collection</string>
     <string name="SensorDataType">SensorDataType</string>
     <string name="SensorDataValue">SensorDataValue</string>
+    <string name="isSensingEnabled">isSensingEnabled</string>
 
 </resources>

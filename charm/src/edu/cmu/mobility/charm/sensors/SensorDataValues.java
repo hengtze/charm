@@ -13,7 +13,9 @@ public class SensorDataValues {
 		ACCELERATION_MAGNITUDE ("Acceleration (Magnitude)"),
 		ORIENTATION_AZIMUTH("Orientation (Azimuth)"), 
 		ORIENTATION_PITCH("Orientation (Pitch)"), 
-		ORIENTATION_ROLL("Orientation (Roll)");
+		ORIENTATION_ROLL("Orientation (Roll)"),
+		LOCATION_LAT("Location (Latitude)"),
+		LOCATION_LON("Location (Longitude)");
 		
 		private final String name;
 		DataType(String s) { this.name = s; }
