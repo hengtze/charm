@@ -7,14 +7,21 @@ public class SensorDataValues {
 	
 	enum DataType {
 		PROXIMITY("Proximity"),
+		LIGHT("Ambient Light"),
+		AUDIO_RAW ("Audio (Amplitude)"),
 		ACCELERATION_X ("Acceleration (X-Axis)"),
 		ACCELERATION_Y ("Acceleration (Y-Axis)"),
 		ACCELERATION_Z ("Acceleration (Z-Axis)"),
 		ACCELERATION_MAGNITUDE ("Acceleration (Magnitude)"),
-		AUDIO_RAW ("Audio (Amplitude)"),
+		ROTATION_VECTOR_X ("Rotation Vector (X)"),
+		ROTATION_VECTOR_Y ("Rotation Vector (Y)"),
+		ROTATION_VECTOR_Z ("Rotation Vector (Z)"),
 		ORIENTATION_AZIMUTH("Orientation (Azimuth)"), 
 		ORIENTATION_PITCH("Orientation (Pitch)"), 
 		ORIENTATION_ROLL("Orientation (Roll)"),
+		GYROSCOPE_X("Gyroscope (X)"),
+		GYROSCOPE_Y("Gyroscope (Y)"),
+		GYROSCOPE_Z("Gyroscope (Z)"),
 		LOCATION_LAT("Location (Latitude)"),
 		LOCATION_LON("Location (Longitude)");
 		

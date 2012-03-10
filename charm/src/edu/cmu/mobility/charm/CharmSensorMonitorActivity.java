@@ -19,7 +19,6 @@ import edu.cmu.mobility.charm.sensors.SensorDataValues;
 public class CharmSensorMonitorActivity extends Activity implements OnClickListener {
 	
 	private static ToggleButton buttonEnableSensing;
-	private static TextView textProximity;
 	private static ListView sensorListView;
 	private static SimpleAdapter sensorListAdapter;
 	private static ArrayList<HashMap<String,String>> sensorDataList;
@@ -35,7 +34,7 @@ public class CharmSensorMonitorActivity extends Activity implements OnClickListe
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.charm_settings_activity);
+        setContentView(R.layout.charm_sensor_monitor_activity);
         initUserInterface();
         
         sensorController = SensorController.getInstance(this);        
@@ -129,7 +128,8 @@ public class CharmSensorMonitorActivity extends Activity implements OnClickListe
 		for (int i=0; i<dataValues.length; i++) {
 	    	HashMap<String,String> row = new HashMap<String,String>();
 	    	row.put(SENSOR_DATA_TYPE, dataTypeStrings[i]);
-	    	row.put(SENSOR_DATA_VALUE, new DecimalFormat("#.##").format(dataValues[i]) );
+	    	row.put(SENSOR_DATA_VALUE, String.format("%.2f", dataValues[i]) );
+	    	//row.put(SENSOR_DATA_VALUE, new DecimalFormat("#.##").format(dataValues[i]) );
 	    	sensorDataList.add(row);
 		}
 		sensorListAdapter.notifyDataSetChanged();
