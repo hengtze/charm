@@ -1,14 +1,15 @@
-package edu.cmu.mobility.charm.sensors;
+package edu.cmu.mobility.charm.data;
 
 public class SensorDataValues {
 	private static SensorDataValues singleInstance = null;
 	private static String [] sensorDataTypeStrings;
 	private static double [] sensorDataValues;
 	
-	enum DataType {
+	public enum DataType {
 		PROXIMITY("Proximity"),
 		LIGHT("Ambient Light"),
 		AUDIO_RAW ("Audio (Amplitude)"),
+		AUDIO_MFCC ("Audio MFCC"),
 		ACCELERATION_X ("Acceleration (X-Axis)"),
 		ACCELERATION_Y ("Acceleration (Y-Axis)"),
 		ACCELERATION_Z ("Acceleration (Z-Axis)"),
@@ -25,9 +26,9 @@ public class SensorDataValues {
 		LOCATION_LAT("Location (Latitude)"),
 		LOCATION_LON("Location (Longitude)");
 		
-		private final String name;
-		DataType(String s) { this.name = s; }
-	    public String getPrintableName() { return name; }
+		private final String printableName;
+		DataType(String s) { this.printableName = s; }
+	    public String getPrintableName() { return printableName; }
 	};
 	
 	public SensorDataValues() {

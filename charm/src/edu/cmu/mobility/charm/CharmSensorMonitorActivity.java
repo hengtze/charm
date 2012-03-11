@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-import edu.cmu.mobility.charm.sensors.SensorDataValues;
+import edu.cmu.mobility.charm.data.SensorDataValues;
 
 
 public class CharmSensorMonitorActivity extends Activity implements OnClickListener {

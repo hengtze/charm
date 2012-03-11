@@ -1,6 +1,7 @@
 package edu.cmu.mobility.charm.sensors;
 
 import edu.cmu.mobility.charm.CharmSensorMonitorActivity;
+import edu.cmu.mobility.charm.data.SensorDataValues;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;

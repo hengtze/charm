@@ -44,7 +44,7 @@
 	        android:background="#DDDDDD"> </LinearLayout> -->
 	        
 	    <ListView 
-	        android:id="@+id/listSensorData"
+	        android:id="@+id/listAttributes"
 	        android:layout_height="wrap_content"                 
         	android:layout_width="match_parent">
        	</ListView>
