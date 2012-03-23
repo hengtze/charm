@@ -7,5 +7,6 @@
     <string name="SensorDataType">SensorDataType</string>
     <string name="SensorDataValue">SensorDataValue</string>
     <string name="isSensingEnabled">isSensingEnabled</string>
+    <string name="folder_name">charm</string>
 
 </resources>

@@ -5,7 +5,7 @@ public class SensorDataValues {
 	private static String [] sensorDataTypeStrings;
 	private static double [] sensorDataValues;
 	
-	public enum DataType {
+	public enum DataType {		
 		PROXIMITY("Proximity"),
 		LIGHT("Ambient Light"),
 		AUDIO_RAW ("Audio (Amplitude)"),
@@ -14,6 +14,9 @@ public class SensorDataValues {
 		ACCELERATION_Y ("Acceleration (Y-Axis)"),
 		ACCELERATION_Z ("Acceleration (Z-Axis)"),
 		ACCELERATION_MAGNITUDE ("Acceleration (Magnitude)"),
+		GRAVITY_X ("Gravity (X-Axis)"),
+		GRAVITY_Y ("Gravity (Y-Axis)"),
+		GRAVITY_Z ("Gravity (Z-Axis)"),
 		ROTATION_VECTOR_X ("Rotation Vector (X)"),
 		ROTATION_VECTOR_Y ("Rotation Vector (Y)"),
 		ROTATION_VECTOR_Z ("Rotation Vector (Z)"),
@@ -24,7 +27,9 @@ public class SensorDataValues {
 		GYROSCOPE_Y("Gyroscope (Y)"),
 		GYROSCOPE_Z("Gyroscope (Z)"),
 		LOCATION_LAT("Location (Latitude)"),
-		LOCATION_LON("Location (Longitude)");
+		LOCATION_LON("Location (Longitude)"),
+		TIMESTAMP ("Timestamp"),
+		;
 		
 		private final String printableName;
 		DataType(String s) { this.printableName = s; }

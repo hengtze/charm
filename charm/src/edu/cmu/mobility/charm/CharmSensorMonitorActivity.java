@@ -1,18 +1,19 @@
 package edu.cmu.mobility.charm;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.hardware.Sensor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
+import edu.cmu.mobility.charm.data.DataArchiveManager;
 import edu.cmu.mobility.charm.data.SensorDataValues;
 
 
@@ -25,6 +26,7 @@ public class CharmSensorMonitorActivity extends Activity implements OnClickListe
 	
 	private static SensorController sensorController;
 	private static SensorDataValues sensorDataValues;
+	private static DataArchiveManager dataManager;
 	private static boolean isSensing = false;
 	
 	private static final String SENSOR_DATA_TYPE = "SensorDataType";
@@ -39,6 +41,7 @@ public class CharmSensorMonitorActivity extends Activity implements OnClickListe
         
         sensorController = SensorController.getInstance(this);        
         sensorDataValues = SensorDataValues.getInstance();
+        dataManager = DataArchiveManager.getInstance(this);        
         initSensorListView();
     }
     
@@ -113,9 +116,19 @@ public class CharmSensorMonitorActivity extends Activity implements OnClickListe
     	if(clickedButton.equals(buttonEnableSensing)) {    					
     		if (buttonEnableSensing.isChecked()) {
     			startSensing();
+    			dataManager.createOutputFile(Sensor.TYPE_LINEAR_ACCELERATION);
+    			dataManager.createOutputFile(Sensor.TYPE_GYROSCOPE);
+    			dataManager.createOutputFile(Sensor.TYPE_GRAVITY);
+    			//dataManager.exportDataToFile();
+    			Toast.makeText(getApplicationContext(),
+						"Start Sensing...", 
+						Toast.LENGTH_SHORT).show(); 
     		}
     		else {			
     			stopSensing();
+    			Toast.makeText(getApplicationContext(),
+						"Stop Sensing...", 
+						Toast.LENGTH_SHORT).show(); 
     		}    		
 		}
     }

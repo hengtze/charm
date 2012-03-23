@@ -8,7 +8,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-public class CompassListener implements SensorListener, SensorEventListener {
+public class OrientationListener implements SensorListener, SensorEventListener {
 	
 	private SensorManager sensorManager;
 	
@@ -18,7 +18,7 @@ public class CompassListener implements SensorListener, SensorEventListener {
 	// Sensor Values
 	private double[] orientation;
 	
-	public CompassListener(Context c) {
+	public OrientationListener(Context c) {
 		sensorManager = (SensorManager) c.getSystemService(Context.SENSOR_SERVICE);
 		orientationSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
 		orientation = new double [3];

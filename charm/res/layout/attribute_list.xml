@@ -22,7 +22,8 @@
 		    android:text="CheckBox" 
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:clickable="false"
-		    android:focusable="false"/>
+		    android:focusable="false"
+		    />
 		    <!-- android:focusable="false" -->
 		    
 		

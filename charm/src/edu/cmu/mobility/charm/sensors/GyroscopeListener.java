@@ -1,6 +1,8 @@
 package edu.cmu.mobility.charm.sensors;
 
 import edu.cmu.mobility.charm.CharmSensorMonitorActivity;
+import edu.cmu.mobility.charm.SettingsActivity;
+import edu.cmu.mobility.charm.data.DataArchiveManager;
 import edu.cmu.mobility.charm.data.SensorDataValues;
 import android.content.Context;
 import android.hardware.Sensor;
@@ -30,7 +32,7 @@ public class GyroscopeListener implements SensorListener, SensorEventListener {
 	
 	@Override
 	public void startListening() {
-		sensorManager.registerListener(this, gyroscope, SensorManager.SENSOR_DELAY_NORMAL);
+		sensorManager.registerListener(this, gyroscope, SensorManager.SENSOR_DELAY_FASTEST);
 	}
 	
 	@Override
@@ -51,6 +53,7 @@ public class GyroscopeListener implements SensorListener, SensorEventListener {
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 		// TODO Auto-generated method stub
+		long timestamp = System.currentTimeMillis();
 		rotationRates[0] = event.values[0];
 		rotationRates[1] = event.values[1];
 		rotationRates[2] = event.values[2];
@@ -60,6 +63,8 @@ public class GyroscopeListener implements SensorListener, SensorEventListener {
 		SensorDataValues.setSensorValue(SensorDataValues.DataType.GYROSCOPE_Z, rotationRates[2]);
 		
 		CharmSensorMonitorActivity.updateSensorValues();
+//		SettingsActivity.sendData(rotationRates[0]);
+		DataArchiveManager.writeSensorData(timestamp, rotationRates, Sensor.TYPE_GYROSCOPE);				
 		
 	}
 	public double [] getData() {

@@ -9,7 +9,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import edu.cmu.mobility.charm.data.AttributeValues;
 
-public class UserLabelActivity extends Activity {
+public class AttributeLabelActivity extends Activity {
 	
 	private static ListView attributeListView;
 	private static SimpleAdapter attributeListAdapter;
@@ -37,16 +37,21 @@ public class UserLabelActivity extends Activity {
 	private void initAttributeListView() {
 		attributeList = new ArrayList<HashMap<String,String>>();
 		attributeListAdapter = new SimpleAdapter(this, attributeList,
-    			R.layout.attribute_list,
-    			//android.R.layout.simple_list_item_multiple_choice,
+    			//R.layout.attribute_list,
+    			android.R.layout.simple_list_item_multiple_choice,
                 //android.R.layout.simple_list_item_2, 
-                new String[] { ATTRIBUTE_TYPE }, 
-                new int[] { R.id.checkBox1 });
+                new String[] { ATTRIBUTE_TYPE },
+                //new int[] { R.id.checkBox1 }
+                new int[] { android.R.id.text1 }
+		);
+		
 	    
     	updateAttributeValues();
     	
     	attributeListView.setAdapter(attributeListAdapter);
     	attributeListView.setTextFilterEnabled(true);
+    	attributeListView.setItemsCanFocus(false);
+    	attributeListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
     }
 	
 	public static void updateAttributeValues () {

@@ -6,36 +6,52 @@ public class AttributeValues {
 	private static double [] attributeValues;
 	
 	public enum DataType {
-		IS_HOME_RELATED ("Home Related"),
-		IS_WORK_RELATED ("Work Related"),
-		
-		IS_INDOOR ("Indoor"),
-		IS_OUTDOOR ("Outdoor"),
-		
-		WITH_NONE ("Alone"),
-		WITH_FAMILY ("With Family"),
-		WITH_COLLEAGUES ("With Colleagues"),
-		WITH_FRIENDS ("With Friends"),
-		
-		HAS_SOUND_NONE ("Silent"),
-		HAS_SOUND_MUSIC ("Music Sound"),
-		HAS_SOUND_VOICE ("People Talking Sound"),
-		HAS_SOUND_CROWD ("Crowd Sound"),
-		HAS_SOUND_WATER ("Water Sound"),
-		HAS_SOUND_MACHINE_HIFREQ ("Low Frequency Machine Sound"),
-		HAS_SOUND_MACHINE_LOWFREQ ("High Freqency Machine Sound"),
-		
-		MOTION_NONE ("No Motion"),
-		MOTION_WALK ("Walking"),
-		MOTION_RUN ("Running"),
-		MOTION_VEHICLE ("Vehicle"),
-		MOTION_ROTATE ("Rotation"),
+		UPPER_ARM_UP ("Upper Arm Up"),
+		UPPER_ARM_DOWN ("Upper Arm Down"),
+		UPPER_ARM_FORWARD ("Upper Arm Forward"),
+		UPPER_ARM_BACK ("Upper Arm Backward"),
+		UPPER_ARM_SIDE ("Upper Arm Sideways"),
+		UPPER_ARM_SWING ("Upper Arm Swing"),
+		ARM_CURL ("Arm Curl"),
 		;		
 		
 		private final String printableName;
 		DataType(String s) { this.printableName = s; }
 	    public String getPrintableName() { return printableName; }
 	};
+	
+//	public enum DataType {
+//		IS_HOME_RELATED ("Home Related"),
+//		IS_WORK_RELATED ("Work Related"),
+//		
+//		IS_INDOOR ("Indoor"),
+//		IS_OUTDOOR ("Outdoor"),
+//		
+//		WITH_NONE ("Alone"),
+//		WITH_FAMILY ("With Family"),
+//		WITH_COLLEAGUES ("With Colleagues"),
+//		WITH_FRIENDS ("With Friends"),
+//		
+//		HAS_SOUND_NONE ("Silent"),
+//		HAS_SOUND_MUSIC ("Music Sound"),
+//		HAS_SOUND_VOICE ("People Talking Sound"),
+//		HAS_SOUND_CROWD ("Crowd Sound"),
+//		HAS_SOUND_WATER ("Water Sound"),
+//		HAS_SOUND_MACHINE_HIFREQ ("Low Frequency Machine Sound"),
+//		HAS_SOUND_MACHINE_LOWFREQ ("High Freqency Machine Sound"),
+//		HAS_SOUND_ECHO ("Echoes"),
+//		
+//		MOTION_NONE ("No Motion"),
+//		MOTION_WALK ("Walking"),
+//		MOTION_RUN ("Running"),
+//		MOTION_VEHICLE ("Vehicle"),
+//		MOTION_ROTATE ("Rotation"),
+//		;		
+//		
+//		private final String printableName;
+//		DataType(String s) { this.printableName = s; }
+//	    public String getPrintableName() { return printableName; }
+//	};
 	
 	public AttributeValues() {
 		attributeValues = new double [DataType.values().length];
@@ -55,7 +71,7 @@ public class AttributeValues {
 		return singleInstance;
 	}
 	
-	public static void setSensorValue(DataType type, double value) {		
+	public static void setAttributeValue(DataType type, double value) {		
 		attributeValues[type.ordinal()] = value;		
 	}
 	

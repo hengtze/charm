@@ -30,7 +30,7 @@ public class RotationVectorListener implements SensorListener, SensorEventListen
 	
 	@Override
 	public void startListening() {
-		sensorManager.registerListener(this, rotationVectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
+		sensorManager.registerListener(this, rotationVectorSensor, SensorManager.SENSOR_DELAY_FASTEST);
 	}
 	
 	@Override

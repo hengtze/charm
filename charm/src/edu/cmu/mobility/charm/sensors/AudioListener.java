@@ -12,7 +12,7 @@ import edu.cmu.mobility.charm.utils.Window;
 
 public class AudioListener implements SensorListener {
 	private static AudioListener singleInstance = null;
-	private AudioRecord audioRecorder = null;	
+	private AudioRecord audioRecorder = null;
 	private Thread threadRecording = null;
 	private static boolean isRecording = false;	
 	
@@ -20,6 +20,7 @@ public class AudioListener implements SensorListener {
 	short data16bit[] = null;
 	// Output MFCC
 	double featureCepstrum[] = null;
+	
 	
 	private int bufferSize = 0;
 	private int bufferSamples = 0;
@@ -130,7 +131,7 @@ public class AudioListener implements SensorListener {
 	
 	public void onSensorChanged() {
 		SensorDataValues.setSensorValue(SensorDataValues.DataType.AUDIO_RAW, data16bit[0]);
-		SensorDataValues.setSensorValue(SensorDataValues.DataType.AUDIO_MFCC, featureCepstrum[12]);
+		SensorDataValues.setSensorValue(SensorDataValues.DataType.AUDIO_MFCC, featureCepstrum[0]);
 		//CharmSensorMonitorActivity.updateSensorValues();
 	}
 	

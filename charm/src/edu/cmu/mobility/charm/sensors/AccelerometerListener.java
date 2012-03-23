@@ -6,6 +6,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import edu.cmu.mobility.charm.CharmSensorMonitorActivity;
+import edu.cmu.mobility.charm.SettingsActivity;
+import edu.cmu.mobility.charm.data.DataArchiveManager;
 import edu.cmu.mobility.charm.data.SensorDataValues;
 
 public class AccelerometerListener implements SensorListener, SensorEventListener {
@@ -17,9 +19,9 @@ public class AccelerometerListener implements SensorListener, SensorEventListene
 	
 	// Sensor Values
 	private double [] 	acceleration;
-	private double 		accelMagnitude;
+	private double 		accelMagnitude = 0;
 	private double [] 	accelMagnitudeHistory;
-	private double		accelMagnitudeMean;
+	private double		accelMagnitudeMean = 0;
 	int					historyWriteIdx;
 	int 				HISTORY_WINDOWSIZE = 10;
 	
@@ -38,7 +40,7 @@ public class AccelerometerListener implements SensorListener, SensorEventListene
 	}
 	@Override
 	public void startListening() {
-		sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+		sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_FASTEST);
 	}
 	@Override
 	public void stopListening() {
@@ -57,26 +59,30 @@ public class AccelerometerListener implements SensorListener, SensorEventListene
 
 	@Override
 	public void onSensorChanged(SensorEvent event) {
-		// TODO Auto-generated method stub
+		long timestamp = System.currentTimeMillis();		
 		acceleration[0] = event.values[0];
 		acceleration[1] = event.values[1];
 		acceleration[2] = event.values[2];
-				
-		accelMagnitude = Math.sqrt( acceleration[0]*acceleration[0]
-					+ acceleration[1]*acceleration[1] + acceleration[2]*acceleration[2] );		
 		
+//		accelMagnitude = Math.sqrt( acceleration[0]*acceleration[0]
+//					+ acceleration[1]*acceleration[1] + acceleration[2]*acceleration[2] );		
+		
+		SensorDataValues.setSensorValue(SensorDataValues.DataType.TIMESTAMP, timestamp);		
 		SensorDataValues.setSensorValue(SensorDataValues.DataType.ACCELERATION_X, acceleration[0]);
 		SensorDataValues.setSensorValue(SensorDataValues.DataType.ACCELERATION_Y, acceleration[1]);
 		SensorDataValues.setSensorValue(SensorDataValues.DataType.ACCELERATION_Z, acceleration[2]);
 		SensorDataValues.setSensorValue(SensorDataValues.DataType.ACCELERATION_MAGNITUDE, accelMagnitude);
 
 		CharmSensorMonitorActivity.updateSensorValues();
+		DataArchiveManager.writeSensorData(timestamp, acceleration, Sensor.TYPE_LINEAR_ACCELERATION);
 		
-		accelMagnitudeHistory[historyWriteIdx] = accelMagnitude;
-		historyWriteIdx++;
-		if (historyWriteIdx >= HISTORY_WINDOWSIZE) {
-			historyWriteIdx = 0;
-		}
+		//SettingsActivity.sendData(acceleration[0]);
+		
+//		accelMagnitudeHistory[historyWriteIdx] = accelMagnitude;
+//		historyWriteIdx++;
+//		if (historyWriteIdx >= HISTORY_WINDOWSIZE) {
+//			historyWriteIdx = 0;
+//		}
 		
 //		RunTheWorldMainActivity.setOutputMotionClass(getMotionClass());
 	}
