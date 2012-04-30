@@ -17,12 +17,12 @@ import edu.cmu.mobility.charm.data.DataArchiveManager;
 import edu.cmu.mobility.charm.data.SensorDataValues;
 
 
-public class CharmSensorMonitorActivity extends Activity implements OnClickListener {
+public class CharmSensorMonitorActivity extends Activity {
 	
 	private static ToggleButton buttonEnableSensing;
 	private static ListView sensorListView;
 	private static SimpleAdapter sensorListAdapter;
-	private static ArrayList<HashMap<String,String>> sensorDataList;
+	private static ArrayList<HashMap<String,String>> sensorDataList = null;
 	
 	private static SensorController sensorController;
 	private static SensorDataValues sensorDataValues;
@@ -48,16 +48,16 @@ public class CharmSensorMonitorActivity extends Activity implements OnClickListe
     @Override
     public void onResume() {
     	super.onResume();		
-		SharedPreferences settings = this.getSharedPreferences("charm.settings", 0);
-		buttonEnableSensing.setChecked(settings.getBoolean(getString(R.string.isSensingEnabled), false));
+//		SharedPreferences settings = this.getSharedPreferences("charm.settings", 0);
+//		buttonEnableSensing.setChecked(settings.getBoolean(getString(R.string.isSensingEnabled), false));
     }
     
     @Override
     public void onPause() {
-    	SharedPreferences settings = this.getSharedPreferences("charm.settings", 0);
-		SharedPreferences.Editor editor = settings.edit();
-		editor.putBoolean(getString(R.string.isSensingEnabled), buttonEnableSensing.isChecked());
-		editor.commit();
+//    	SharedPreferences settings = this.getSharedPreferences("charm.settings", 0);
+//		SharedPreferences.Editor editor = settings.edit();
+//		editor.putBoolean(getString(R.string.isSensingEnabled), buttonEnableSensing.isChecked());
+//		editor.commit();
     	super.onPause();
     }
     
@@ -68,33 +68,33 @@ public class CharmSensorMonitorActivity extends Activity implements OnClickListe
     
     @Override
     protected void onDestroy() {
-    	SharedPreferences settings = this.getSharedPreferences("charm.settings", 0);
-    	if (isSensing){
-			SharedPreferences.Editor editor = settings.edit();
-			editor.putBoolean(getString(R.string.isSensingEnabled), false);
-			editor.commit();
-			
-	    	sensorController.stopSensing();
-    	}
-    	sensorController.onDestroy();
+//    	SharedPreferences settings = this.getSharedPreferences("charm.settings", 0);
+//    	if (isSensing){
+//			SharedPreferences.Editor editor = settings.edit();
+//			editor.putBoolean(getString(R.string.isSensingEnabled), false);
+//			editor.commit();
+//			
+//	    	sensorController.stopSensing();
+//    	}
+//    	sensorController.onDestroy();
     	super.onDestroy();
     }
     
-    @Override
-    public void onBackPressed() {        
-    	if ( !isSensing ) {
-    		finish();
-    		//moveTaskToBack(true);
-    	}
-    	else {
-    		moveTaskToBack(true);
-    	}
-    }
+//    @Override
+//    public void onBackPressed() {        
+//    	if ( !isSensing ) {
+//    		finish();
+//    		//moveTaskToBack(true);
+//    	}
+//    	else {
+//    		moveTaskToBack(true);
+//    	}
+//    }
     
     private void initUserInterface() {
     	//textProximity = (TextView) findViewById(R.id.);
-    	buttonEnableSensing = (ToggleButton) findViewById(R.id.buttonEnableSensing);
-    	buttonEnableSensing.setOnClickListener(this);
+//    	buttonEnableSensing = (ToggleButton) findViewById(R.id.buttonEnableSensing);
+//    	buttonEnableSensing.setOnClickListener(this);
     	sensorListView = (ListView) this.findViewById(R.id.listSensorData); 
     }
     
@@ -112,48 +112,54 @@ public class CharmSensorMonitorActivity extends Activity implements OnClickListe
     	sensorListView.setTextFilterEnabled(true);
     }
     
-    public void onClick (View clickedButton) {
-    	if(clickedButton.equals(buttonEnableSensing)) {    					
-    		if (buttonEnableSensing.isChecked()) {
-    			startSensing();
-    			dataManager.createOutputFile(Sensor.TYPE_LINEAR_ACCELERATION);
-    			dataManager.createOutputFile(Sensor.TYPE_GYROSCOPE);
-    			dataManager.createOutputFile(Sensor.TYPE_GRAVITY);
-    			//dataManager.exportDataToFile();
-    			Toast.makeText(getApplicationContext(),
-						"Start Sensing...", 
-						Toast.LENGTH_SHORT).show(); 
-    		}
-    		else {			
-    			stopSensing();
-    			Toast.makeText(getApplicationContext(),
-						"Stop Sensing...", 
-						Toast.LENGTH_SHORT).show(); 
-    		}    		
-		}
-    }
+//    public void onClick (View clickedButton) {
+//    	if(clickedButton.equals(buttonEnableSensing)) {    					
+//    		if (buttonEnableSensing.isChecked()) {
+//    			startSensing();    			
+//    		}
+//    		else {			
+//    			stopSensing();    			
+//    		}    		
+//		}
+//    }
     
     public static void updateSensorValues () {
-		sensorDataList.clear();
-		String [] dataTypeStrings = sensorDataValues.getSensorDataTypeStrings();
-		double [] dataValues = sensorDataValues.getSensorDataValues();
-		
-		for (int i=0; i<dataValues.length; i++) {
-	    	HashMap<String,String> row = new HashMap<String,String>();
-	    	row.put(SENSOR_DATA_TYPE, dataTypeStrings[i]);
-	    	row.put(SENSOR_DATA_VALUE, String.format("%.2f", dataValues[i]) );
-	    	//row.put(SENSOR_DATA_VALUE, new DecimalFormat("#.##").format(dataValues[i]) );
-	    	sensorDataList.add(row);
-		}
-		sensorListAdapter.notifyDataSetChanged();
+    	if (sensorDataList != null) {
+			sensorDataList.clear();
+			String [] dataTypeStrings = sensorDataValues.getSensorDataTypeStrings();
+			double [] dataValues = sensorDataValues.getSensorDataValues();
+			
+			for (int i=0; i<dataValues.length; i++) {
+		    	HashMap<String,String> row = new HashMap<String,String>();
+		    	row.put(SENSOR_DATA_TYPE, dataTypeStrings[i]);
+		    	row.put(SENSOR_DATA_VALUE, String.format("%.2f", dataValues[i]) );
+		    	//row.put(SENSOR_DATA_VALUE, new DecimalFormat("#.##").format(dataValues[i]) );
+		    	sensorDataList.add(row);
+			}
+			sensorListAdapter.notifyDataSetChanged();
+    	}
     }
 	
-	private void startSensing() {
-		sensorController.startSensing();
-		isSensing = true;
-	}
-	private void stopSensing() {
-		sensorController.stopSensing();
-		isSensing = false;
-	}
+//	private void startSensing() {
+//		Toast.makeText(getApplicationContext(),
+//				"Start Sensing...", 
+//				Toast.LENGTH_SHORT).show(); 
+//		
+//		sensorController.startSensing();
+//		isSensing = true;
+//		
+//		DataArchiveManager.setSessionTimestamp();
+//		dataManager.createOutputFile(Sensor.TYPE_LINEAR_ACCELERATION);
+//		dataManager.createOutputFile(Sensor.TYPE_GYROSCOPE);
+//		dataManager.createOutputFile(Sensor.TYPE_GRAVITY);		
+//	}
+//	
+//	private void stopSensing() {
+//		Toast.makeText(getApplicationContext(),
+//				"Stop Sensing...", 
+//				Toast.LENGTH_SHORT).show(); 
+//		
+//		sensorController.stopSensing();
+//		isSensing = false;
+//	}
 }

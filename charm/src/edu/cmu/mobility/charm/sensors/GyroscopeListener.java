@@ -22,7 +22,7 @@ public class GyroscopeListener implements SensorListener, SensorEventListener {
 	
 	public GyroscopeListener(Context c) {
 		sensorManager = (SensorManager) c.getSystemService(Context.SENSOR_SERVICE);
-		gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+		gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 		rotationRates = new double [3];
 	}
 	@Override
@@ -62,7 +62,7 @@ public class GyroscopeListener implements SensorListener, SensorEventListener {
 		SensorDataValues.setSensorValue(SensorDataValues.DataType.GYROSCOPE_Y, rotationRates[1]);
 		SensorDataValues.setSensorValue(SensorDataValues.DataType.GYROSCOPE_Z, rotationRates[2]);
 		
-		CharmSensorMonitorActivity.updateSensorValues();
+//		CharmSensorMonitorActivity.updateSensorValues();
 //		SettingsActivity.sendData(rotationRates[0]);
 		DataArchiveManager.writeSensorData(timestamp, rotationRates, Sensor.TYPE_GYROSCOPE);				
 		

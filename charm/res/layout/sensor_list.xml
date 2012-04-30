@@ -25,8 +25,8 @@
 			android:text="TextView" 
 			android:gravity="center_vertical|right"
 			android:layout_height="wrap_content"			
-			android:layout_width="70dip"
-			android:layout_marginLeft="0dip" 
+			android:layout_width="wrap_content"
+			android:layout_marginLeft="10dip"
 			android:textColor="#BBB"
 			android:textStyle="bold"
 			android:textAppearance="?android:attr/textAppearanceSmall">

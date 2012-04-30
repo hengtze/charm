@@ -10,37 +10,37 @@ import edu.cmu.mobility.charm.SettingsActivity;
 import edu.cmu.mobility.charm.data.DataArchiveManager;
 import edu.cmu.mobility.charm.data.SensorDataValues;
 
-public class AccelerometerListener implements SensorListener, SensorEventListener {
+public class LinearAccelerationListener implements SensorListener, SensorEventListener {
 	
 	private SensorManager sensorManager;
 	
 	// Sensors
-	private Sensor accelerometer;
+	private Sensor linearAccelerationSensor;
 	
 	// Sensor Values
-	private double [] 	acceleration;
+	private double [] 	linearAcceleration;
 	private double 		accelMagnitude = 0;
 	private double [] 	accelMagnitudeHistory;
 	private double		accelMagnitudeMean = 0;
 	int					historyWriteIdx;
 	int 				HISTORY_WINDOWSIZE = 10;
 	
-	public AccelerometerListener(Context c) {
+	public LinearAccelerationListener(Context c) {
 		sensorManager = (SensorManager) c.getSystemService(Context.SENSOR_SERVICE);
-		accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+		linearAccelerationSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
 		
-		acceleration = new double [3];
+		linearAcceleration = new double [3];
 		accelMagnitudeHistory = new double [HISTORY_WINDOWSIZE];
 		historyWriteIdx = 0;
 	}
 	@Override
 	public boolean isAvailableOnDevice() {
 		// TODO Auto-generated method stub
-		return (accelerometer != null);
+		return (linearAccelerationSensor != null);
 	}
 	@Override
 	public void startListening() {
-		sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_FASTEST);
+		sensorManager.registerListener(this, linearAccelerationSensor, SensorManager.SENSOR_DELAY_FASTEST);
 	}
 	@Override
 	public void stopListening() {
@@ -60,20 +60,21 @@ public class AccelerometerListener implements SensorListener, SensorEventListene
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 		long timestamp = System.currentTimeMillis();		
-		acceleration[0] = event.values[0];
-		acceleration[1] = event.values[1];
-		acceleration[2] = event.values[2];
+		linearAcceleration[0] = event.values[0];
+		linearAcceleration[1] = event.values[1];
+		linearAcceleration[2] = event.values[2];
 		
 //		accelMagnitude = Math.sqrt( acceleration[0]*acceleration[0]
 //					+ acceleration[1]*acceleration[1] + acceleration[2]*acceleration[2] );		
 		
 		SensorDataValues.setSensorValue(SensorDataValues.DataType.TIMESTAMP, timestamp);		
-		SensorDataValues.setSensorValue(SensorDataValues.DataType.ACCELERATION_X, acceleration[0]);
-		SensorDataValues.setSensorValue(SensorDataValues.DataType.ACCELERATION_Y, acceleration[1]);
-		SensorDataValues.setSensorValue(SensorDataValues.DataType.ACCELERATION_Z, acceleration[2]);
+		SensorDataValues.setSensorValue(SensorDataValues.DataType.LIN_ACCELERATION_X, linearAcceleration[0]);
+		SensorDataValues.setSensorValue(SensorDataValues.DataType.LIN_ACCELERATION_Y, linearAcceleration[1]);
+		SensorDataValues.setSensorValue(SensorDataValues.DataType.LIN_ACCELERATION_Z, linearAcceleration[2]);
+		SensorDataValues.setSensorValue(SensorDataValues.DataType.LIN_ACCELERATION_MAGNITUDE, accelMagnitude);
 		
-		CharmSensorMonitorActivity.updateSensorValues();
-		DataArchiveManager.writeSensorData(timestamp, acceleration, Sensor.TYPE_ACCELEROMETER);
+//		CharmSensorMonitorActivity.updateSensorValues();
+		DataArchiveManager.writeSensorData(timestamp, linearAcceleration, Sensor.TYPE_LINEAR_ACCELERATION);
 		
 		//SettingsActivity.sendData(acceleration[0]);
 		
@@ -87,7 +88,7 @@ public class AccelerometerListener implements SensorListener, SensorEventListene
 	}
 	public double [] getData() {
 		// TODO Auto-generated method stub
-		return acceleration;
+		return linearAcceleration;
 	}
 	public double getAccelMagnitudeMean() {
 		// TODO Auto-generated method stub

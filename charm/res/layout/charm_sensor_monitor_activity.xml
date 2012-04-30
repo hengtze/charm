@@ -20,11 +20,11 @@
 	            android:layout_gravity="center_vertical"
 	            android:layout_weight="1.5"
 	            android:layout_marginLeft="10dip"
-	            android:text="Dashboard"
+	            android:text="Sensor Data Dashboard"
 	            android:textColor="#EEE"
 	            android:textSize="32dip"
 	            />
-	        <ToggleButton
+	        <!-- <ToggleButton
 	            android:id="@+id/buttonEnableSensing"
 	            android:layout_width="80dip"
 	            android:layout_height="70dip"
@@ -37,7 +37,7 @@
 	            android:textOn="TAP TO STOP SENSING"
 	            android:textOff="TAP TO START SENSING"
 	            android:textColor="#E2C33A"
-	            android:text="ToggleButton" />
+	            android:text="ToggleButton" /> -->
 	    </LinearLayout>
 	    
 		<!-- <ImageView

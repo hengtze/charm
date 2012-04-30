@@ -9,12 +9,11 @@
     	android:layout_height="fill_parent"
     	android:orientation="vertical" >
 	    <LinearLayout
-	        android:id="@+id/linearLayout1"
 	        android:layout_width="match_parent"
 	        android:layout_height="100dip" 
-	        android:background="#3186AA">	
+	        android:background="#3186AA" >	
 	        <TextView
-	            android:id="@+id/textEnableSensing"
+	            android:id="@+id/textLabeling"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_gravity="center_vertical"
@@ -22,7 +21,20 @@
 	            android:layout_marginLeft="10dip"
 	            android:text="Labeling"
 	            android:textColor="#EEE"
-	            android:textSize="32dip" />	        
+	            android:textSize="32dip" />
+	        <ToggleButton
+	            android:id="@+id/buttonEnableSensingOnLabeling"
+	            android:layout_width="85dip"
+	            android:layout_height="80dip"
+	            android:layout_gravity="center_vertical"
+	            android:layout_marginRight="12dip"	            
+	            android:gravity="center_vertical|center_horizontal"
+	            android:paddingLeft="2dip"
+	            android:lines="3"
+	            android:textOn="STOP SENSING"
+	            android:textOff="START SENSING"
+	            android:textColor="#3186AA"
+	            android:text="ToggleButton" />	        
 	    </LinearLayout>
 	    
 		<!-- <ImageView
