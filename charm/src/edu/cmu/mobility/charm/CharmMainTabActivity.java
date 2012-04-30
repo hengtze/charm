@@ -13,6 +13,7 @@ public class CharmMainTabActivity extends TabActivity {
 		super.onCreate(savedInstanceState);
 	    setContentView(R.layout.main_tab_activity);
 	    
+	    int numOfTabs = 3;
 	    Resources res = getResources(); // Resource object to get Drawables
 	    TabHost tabHost = getTabHost();  // The activity TabHost
 	    TabHost.TabSpec spec;  // Resusable TabSpec for each tab
@@ -46,6 +47,11 @@ public class CharmMainTabActivity extends TabActivity {
 	                  .setContent(intent);
 	    tabHost.addTab(spec);
 	    
-	    tabHost.setCurrentTab(3);
+	    tabHost.setCurrentTab(numOfTabs);
+
+	    // -----Adjust The Height of Tab Icons-------
+//	    for (int i=0; i < numOfTabs; i++) {
+//		    tabHost.getTabWidget().getChildAt(i).getLayoutParams().height = 40;
+//		}
 	}
 }

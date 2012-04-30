@@ -72,7 +72,7 @@ public class AccelerometerListener implements SensorListener, SensorEventListene
 		SensorDataValues.setSensorValue(SensorDataValues.DataType.ACCELERATION_Y, acceleration[1]);
 		SensorDataValues.setSensorValue(SensorDataValues.DataType.ACCELERATION_Z, acceleration[2]);
 		
-		CharmSensorMonitorActivity.updateSensorValues();
+//		CharmSensorMonitorActivity.updateSensorValues();
 		DataArchiveManager.writeSensorData(timestamp, acceleration, Sensor.TYPE_ACCELEROMETER);
 		
 		//SettingsActivity.sendData(acceleration[0]);

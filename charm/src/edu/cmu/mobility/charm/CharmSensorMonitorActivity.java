@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
@@ -27,7 +28,10 @@ public class CharmSensorMonitorActivity extends Activity {
 	private static SensorController sensorController;
 	private static SensorDataValues sensorDataValues;
 	private static DataArchiveManager dataManager;
-	private static boolean isSensing = false;
+	
+	private final Handler mHandler = new Handler();
+    private static Thread threadUpdateSensorValues;
+    private static Runnable runUpdateSensorValues;
 	
 	private static final String SENSOR_DATA_TYPE = "SensorDataType";
 	private static final String SENSOR_DATA_VALUE = "SensorDataValue";
@@ -43,6 +47,7 @@ public class CharmSensorMonitorActivity extends Activity {
         sensorDataValues = SensorDataValues.getInstance();
         dataManager = DataArchiveManager.getInstance(this);        
         initSensorListView();
+        initThreadUpdateSensorValues();
     }
     
     @Override
@@ -139,6 +144,54 @@ public class CharmSensorMonitorActivity extends Activity {
 			sensorListAdapter.notifyDataSetChanged();
     	}
     }
+    
+    private void initThreadUpdateSensorValues() {
+		// TODO Auto-generated method stub
+		runUpdateSensorValues = new Runnable() {
+        	@Override
+	        public void run() {
+	            // TODO Auto-generated method stub
+	            while (ClassLabelActivity.isSensing()) {
+	                try {
+	                    Thread.sleep(500);
+	                } catch (InterruptedException e) {
+	                    e.printStackTrace();
+	                }
+	                mHandler.post(runnableUpdateSensorValues);
+	            }
+			}
+        };
+	}
+	
+    public static void startThreadUpdateSensorValues(){
+	  	if(threadUpdateSensorValues == null){
+	  		threadUpdateSensorValues = new Thread(runUpdateSensorValues);
+	  		threadUpdateSensorValues.start();
+	  	}
+	}
+
+	public static void stopThreadUpdateSensorValues(){
+		if(threadUpdateSensorValues != null){
+			Thread t = threadUpdateSensorValues;
+			threadUpdateSensorValues = null;
+			t.interrupt();
+		}
+	}
+	private final Runnable runnableUpdateSensorValues= new Runnable() 
+    {
+		@Override
+        public void run() 
+        {
+            try 
+            {
+                if(ClassLabelActivity.isSensing()) {
+                	updateSensorValues();
+            	}
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
 	
 //	private void startSensing() {
 //		Toast.makeText(getApplicationContext(),

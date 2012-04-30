@@ -48,7 +48,7 @@ public class ProximitySensorListener implements SensorListener, SensorEventListe
 	public void onSensorChanged(SensorEvent event) {
 		distance = event.values[0];
 		SensorDataValues.setSensorValue(SensorDataValues.DataType.PROXIMITY, distance);
-		CharmSensorMonitorActivity.updateSensorValues();
+//		CharmSensorMonitorActivity.updateSensorValues();
 	}
 	
 	public double getData() {
