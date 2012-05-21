@@ -48,7 +48,7 @@ public class LightSensorListener implements SensorListener, SensorEventListener 
 	public void onSensorChanged(SensorEvent event) {
 		illuminance = event.values[0];
 		SensorDataValues.setSensorValue(SensorDataValues.DataType.LIGHT, illuminance);
-		CharmSensorMonitorActivity.updateSensorValues();
+//		CharmSensorMonitorActivity.updateSensorValues();
 	}
 	
 	public double getData() {

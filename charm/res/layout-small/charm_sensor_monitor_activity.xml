@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+	<LinearLayout
+	    android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:orientation="vertical" >
+	    <LinearLayout
+	        android:id="@+id/linearLayout1"
+	        android:layout_width="match_parent"
+	        android:layout_height="45dip" 
+	        android:background="#E2C33A">	
+	        <TextView
+	            android:id="@+id/textEnableSensing"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center_vertical"
+	            android:layout_weight="1.5"
+	            android:layout_marginLeft="10dip"
+	            android:text="Dashboard"
+	            android:textColor="#EEE"
+	            android:textSize="24dip"
+	            />
+	        <!-- <ToggleButton
+	            android:id="@+id/buttonEnableSensing"
+	            android:layout_width="80dip"
+	            android:layout_height="70dip"
+	            android:layout_gravity="center_vertical"
+	            android:layout_marginRight="12dip"
+	            android:background="#FFF"
+	            android:gravity="center_vertical|left"
+	            android:paddingLeft="10dip"
+	            android:lines="3"
+	            android:textOn="TAP TO STOP SENSING"
+	            android:textOff="TAP TO START SENSING"
+	            android:textColor="#E2C33A"
+	            android:text="ToggleButton" /> -->
+	    </LinearLayout>
+	    
+		<!-- <ImageView
+			android:src="@drawable/twocolorline"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:scaleType="fitXY" />
+	    <TextView
+	        android:id="@+id/textProximity"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dip"
+	        android:text="Proximity: "
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	    <LinearLayout
+	        android:id="horizontalLine1"
+	        android:layout_width="match_parent"
+	        android:layout_height="0.5dip" 
+	        android:background="#DDDDDD"> </LinearLayout> -->
+	        
+	    <ListView 
+	        android:id="@+id/listSensorData"
+	        android:layout_height="wrap_content"                 
+        	android:layout_width="match_parent">
+       	</ListView>
+    </LinearLayout>
+</LinearLayout>

@@ -1,6 +1,7 @@
 package edu.cmu.mobility.charm.sensors;
 
 import edu.cmu.mobility.charm.CharmSensorMonitorActivity;
+import edu.cmu.mobility.charm.data.DataArchiveManager;
 import edu.cmu.mobility.charm.data.SensorDataValues;
 import android.content.Context;
 import android.hardware.Sensor;
@@ -8,29 +9,29 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-public class RotationVectorListener implements SensorListener, SensorEventListener {
+public class GravityListener implements SensorListener, SensorEventListener {
 	
 	private SensorManager sensorManager;
 	
 	// Sensors
-	private Sensor rotationVectorSensor;
+	private Sensor gravitySensor;
 	
 	// Sensor Values
-	private double[] rotationVector;
+	private double[] gravity;
 	
-	public RotationVectorListener(Context c) {
+	public GravityListener(Context c) {
 		sensorManager = (SensorManager) c.getSystemService(Context.SENSOR_SERVICE);
-		rotationVectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
-		rotationVector = new double [3];
+		gravitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
+		gravity = new double [3];
 	}
 	@Override
 	public boolean isAvailableOnDevice() {
-		return (rotationVectorSensor != null);
+		return (gravitySensor != null);
 	}
 	
 	@Override
 	public void startListening() {
-		sensorManager.registerListener(this, rotationVectorSensor, SensorManager.SENSOR_DELAY_FASTEST);
+		sensorManager.registerListener(this, gravitySensor, SensorManager.SENSOR_DELAY_FASTEST);
 	}
 	
 	@Override
@@ -50,20 +51,20 @@ public class RotationVectorListener implements SensorListener, SensorEventListen
 
 	@Override
 	public void onSensorChanged(SensorEvent event) {
-		// TODO Auto-generated method stub
-		rotationVector[0] = event.values[0];
-		rotationVector[1] = event.values[1];
-		rotationVector[2] = event.values[2];
+		long timestamp = System.currentTimeMillis();
+		gravity[0] = event.values[0];
+		gravity[1] = event.values[1];
+		gravity[2] = event.values[2];
 		
-		SensorDataValues.setSensorValue(SensorDataValues.DataType.ROTATION_VECTOR_X, rotationVector[0]);
-		SensorDataValues.setSensorValue(SensorDataValues.DataType.ROTATION_VECTOR_Y, rotationVector[1]);
-		SensorDataValues.setSensorValue(SensorDataValues.DataType.ROTATION_VECTOR_Z, rotationVector[2]);
+		SensorDataValues.setSensorValue(SensorDataValues.DataType.GRAVITY_X, gravity[0]);
+		SensorDataValues.setSensorValue(SensorDataValues.DataType.GRAVITY_Y, gravity[1]);
+		SensorDataValues.setSensorValue(SensorDataValues.DataType.GRAVITY_Z, gravity[2]);
 		
 //		CharmSensorMonitorActivity.updateSensorValues();
-		
+		DataArchiveManager.writeSensorData(timestamp, gravity, Sensor.TYPE_GRAVITY);
 	}
 	public double [] getData() {
 		// TODO Auto-generated method stub
-		return rotationVector;
+		return gravity;
 	}
 }

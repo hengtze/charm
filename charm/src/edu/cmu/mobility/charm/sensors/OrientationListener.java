@@ -59,7 +59,7 @@ public class OrientationListener implements SensorListener, SensorEventListener 
 		SensorDataValues.setSensorValue(SensorDataValues.DataType.ORIENTATION_PITCH, orientation[1]);
 		SensorDataValues.setSensorValue(SensorDataValues.DataType.ORIENTATION_ROLL, orientation[2]);
 		
-		CharmSensorMonitorActivity.updateSensorValues();
+//		CharmSensorMonitorActivity.updateSensorValues();
 		
 	}
 	public double [] getData() {

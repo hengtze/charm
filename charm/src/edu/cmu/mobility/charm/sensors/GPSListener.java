@@ -53,7 +53,7 @@ public class GPSListener implements SensorListener, LocationListener {
 		
 		SensorDataValues.setSensorValue(SensorDataValues.DataType.LOCATION_LAT, latitude);
 		SensorDataValues.setSensorValue(SensorDataValues.DataType.LOCATION_LON, longitude);
-		CharmSensorMonitorActivity.updateSensorValues();
+//		CharmSensorMonitorActivity.updateSensorValues();
 	}
 
 	@Override

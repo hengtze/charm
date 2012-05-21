@@ -13,7 +13,7 @@
         <activity
             android:label="@string/app_name"
             android:name=".CharmMainTabActivity" 
-            android:screenOrientation="user" >
+            android:screenOrientation="nosensor" >
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -22,7 +22,7 @@
         <activity
             android:label="@string/app_name"
             android:name=".CharmSensorMonitorActivity" 
-            android:screenOrientation="user" >
+            android:screenOrientation="nosensor" >
             <!-- <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -31,17 +31,17 @@
         <activity
             android:label="@string/app_name"
             android:name=".AttributeLabelActivity" 
-            android:screenOrientation="user" >            
+            android:screenOrientation="nosensor" >            
         </activity>
         <activity
             android:label="@string/app_name"
             android:name=".ClassLabelActivity" 
-            android:screenOrientation="user" >            
+            android:screenOrientation="nosensor" >            
         </activity>
         <activity
             android:label="@string/app_name"
             android:name=".SettingsActivity" 
-            android:screenOrientation="user" >            
+            android:screenOrientation="nosensor" >            
         </activity>            
     </application>
 	
